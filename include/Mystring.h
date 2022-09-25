@@ -25,6 +25,9 @@ public:
     // copy constructor
     Mystring(const Mystring &obj);
 
+    //TODO why can't I implement the copy assignment operator in .cpp file?
+    // I get errors there
+
     // copy assignment
     Mystring &operator=(const Mystring &obj) {
         std::cout << "Copy assignment operator called " << std::endl;
@@ -39,7 +42,8 @@ public:
         return *this;
     }
 
-    Mystring(Mystring &&dyingObj); // move constructor
+    // move constructor
+    Mystring(Mystring&& dyingObj);
 
     Mystring &operator=(Mystring &&dyingObj); // move assignment
 

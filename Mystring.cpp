@@ -25,13 +25,12 @@ Mystring::Mystring(const Mystring& obj) {
 }
 
 // move constructor
-Mystring::Mystring(Mystring &&dyingObj) {
-    destroy(); // cleanup any existing data
+Mystring::Mystring(Mystring&& dyingObj) {
+    //do clean up
+    destroy();
 
-    // Copy data from the incoming object
+    // Copy data from dying object
     size_ = dyingObj.size_;
-
-    // Transfer ownership of underlying char buffer from incoming object to this object
     str_ = dyingObj.str_;
     dyingObj.str_ = nullptr;
 }
@@ -51,8 +50,10 @@ Mystring::Mystring(Mystring &&dyingObj) {
 }*/
 
 Mystring::~Mystring() {
-    if (this->str_ != NULL)
-        delete[] this->str_;
+    if (str_ != nullptr) {
+        str_ = nullptr;
+        delete[] str_;
+    }
 }
 
 void Mystring::append(const char* str) {
