@@ -6,8 +6,10 @@
 
 // constructor
 Mystring::Mystring(const char *const str) {
+    std::cout << "Constructor called " << std::endl;
     size_ = strlen(str);
-    str_ = new char[size_ + 1]; // + 1 for the keeping the null character
+    // + 1 for the keeping the null character
+    str_ = new char[size_ + 1];
     for (int i = 0; i < size_; ++i) {
         str_[i] = str[i];
     }
@@ -24,32 +26,95 @@ Mystring::Mystring(const Mystring& obj) {
     str_[-1] = '\0';
 }
 
+// copy assignment
+Mystring& Mystring::operator=(const Mystring &obj) {
+    std::cout << "Copy assignment operator called " << std::endl;
+    //do clean up
+    destroy();
+
+    size_ = obj.size_;
+    str_ = new char[size_ + 1]; // + 1 for the keeping the null character
+    for (int i = 0; i < size_; ++i) {
+        str_[i] = obj.str_[i];
+    }
+    str_[-1] = '\0';
+
+    return *this;
+}
+
 // move constructor
-Mystring::Mystring(Mystring&& dyingObj) {
+Mystring::Mystring(Mystring&& dyingObj) noexcept {
+    std::cout << "Move constructor called " << std::endl;
     //do clean up
     destroy();
 
     // Copy data from dying object
     size_ = dyingObj.size_;
     str_ = dyingObj.str_;
+    str_[-1] = '\0';
     dyingObj.str_ = nullptr;
 }
 
-// move constructor
-/*Mystring::Mystring& operator=(Mystring && dyingObj) {
-    //__cleanup__(); // cleanup any existing data
+// move assignment
+Mystring& Mystring::operator=(Mystring && dyingObj) {
+    std::cout << "Move assignment operator called " << std::endl;
+    //clean up
+    destroy();
 
     // Copy data from the incoming object
     size_ = dyingObj.size_;
 
-    // Transfer ownership of underlying char buffer from incoming object to this object
-    str = dyingObj.str;
-    dyingObj.str = nullptr;
+    // assign str and make dyingObj.str_ a nullptr
+    str_ = dyingObj.str_;
+    dyingObj.str_ = nullptr;
+    str_[-1] = '\0';
+    return *this;
+}
+//+operator
+Mystring Mystring::operator+(const Mystring &obj) {
+    std::cout << "+operator called " << std::endl;
+    //TODO use append here
+    Mystring newstr;
+    newstr.size_ = this->size_ + obj.size_;
+    newstr.str_ = new char[newstr.size_ + 1];
+
+    for (int i = 0; i < size_; ++i) {
+        newstr.str_[i] = str_[i];
+    }
+
+    for (int i = size_; i < newstr.size_; ++i) {
+        newstr.str_[i] = obj.str_[i-size_];
+    }
+
+    return newstr;
+}
+
+//+=operator
+Mystring& Mystring::operator+=(const Mystring& obj) {
+    //TODO use append here
+    char* oldstr = str_;
+    size_t oldsize = size_;
+    size_ = size_ + obj.size_;
+    str_ = new char[size_ + 1]; // + 1 for the keeping the null character
+
+    for (int i = 0; i < oldsize; ++i) {
+        str_[i] = oldstr[i];
+    }
+
+    for (int i = 0; i < strlen(obj.str_); ++i) {
+        str_[i+oldsize] = obj.str_[i];
+    }
+
+    str_[-1] = '\0';
 
     return *this;
-}*/
+}
 
+
+//destructor
 Mystring::~Mystring() {
+    std::cout << "Destructor called " << std::endl;
+
     if (str_ != nullptr) {
         str_ = nullptr;
         delete[] str_;

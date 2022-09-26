@@ -20,5 +20,27 @@ int main() {
     Mystring three = one;
     std::cout << two.c_str() << std::endl;
     std::cout << three.c_str() << std::endl;
+
+    //test move operator
+    Mystring apple, apple2;
+
+    //test move assignment
+    std::cout << "Test move operator" << std::endl;
+    apple = Mystring("Apple");
+    std::cout << "apple = " << apple.c_str() << std::endl;
+
+    apple2 = Mystring(apple);
+    std::cout << "apple2 = " << apple2.c_str() << std::endl;
+    std::cout << "apple = " << apple.c_str() << std::endl;
+
+    std::cout << "Test +operator" << std::endl;
+    Mystring orange("orange ");
+    Mystring juice = "juice";
+    Mystring orangejuice = orange + juice;
+    std::cout << orangejuice.c_str() << std::endl;
+
+
+
+
     return 0;
 }
