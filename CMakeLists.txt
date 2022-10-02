@@ -3,5 +3,5 @@ project(string)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(string main.cpp Mystring.cpp include/Mystring.h)
+add_executable(string main.cpp Mystring.cpp Mystring.h)
 target_link_libraries(string gtest)

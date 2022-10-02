@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <algorithm>
 #include <gtest/gtest.h>
-#include "include/Mystring.h"
+#include "Mystring.h"
 
 /*
 * =================================================
