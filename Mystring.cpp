@@ -81,7 +81,7 @@ Mystring &Mystring::operator=(const Mystring &obj) {
         size_t size = length(str);
         m_realloc(size);
 
-        for (int i = 0; i < size; ++i) {
+        for (size_t i = 0; i < size; i++) {
             m_str[i] = str[i];
         }
 
@@ -186,7 +186,7 @@ void Mystring::m_realloc(const size_t size) {
         m_buff *= BUFF_INC;
     }
     char *tmp = new char[m_buff];
-    for (int i = 0; i < m_buff; i++) {
+    for (size_t i = 0; i < m_buff; i++) {
         tmp[i] = '\0';
     }
     //release resources
@@ -202,10 +202,10 @@ void Mystring::m_concat(const char *str_first, const char *str_second) {
     size_t size_str_first = length(str_first);
     size_t size_str_second = length(str_second);
 
-    for (int i = 0; i < size_str_first; i++) {
+    for (size_t i = 0; i < size_str_first; i++) {
         m_str[i] = str_first[i];
     }
-    for (int i = 0; i < size_str_second; ++i) {
+    for (size_t i = 0; i < size_str_second; i++) {
         m_str[size_str_first + i] = str_second[i];
     }
     m_size = length(m_str);
@@ -216,7 +216,7 @@ void Mystring::m_append(const char *str) {
     size_t old_size = length(m_str);
     char *old_str = new char[length(m_str)];
 
-    for (int i = 0; i < old_size; ++i) {
+    for (size_t i = 0; i < old_size; i++) {
         old_str[i] = m_str[i];
     }
 

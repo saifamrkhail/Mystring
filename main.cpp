@@ -178,6 +178,8 @@ TEST(MystringTest, begin) {
 }
 
 int main(int argc, char *argv[]) {
+    //TODO gcc -o string main.cpp Mystring.cpp -lgtest
+    // throwing Error
 
     //Teil 1
     Mystring myString("Hello");
