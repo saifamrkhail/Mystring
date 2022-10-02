@@ -1,3 +1,4 @@
+//Mystring is a simple implementation of C++ string.
 //
 // Created by saif on 9/24/22.
 //
@@ -10,13 +11,63 @@
 #include <iostream>
 #include <ostream>
 
+#define INIT_BUFF 32
+# define BUFF_INC 2
+
 class Mystring {
-
 public:
-    //default constructor
-    Mystring() : str_(nullptr), size_(0) {
+    class Myiterator : public std::iterator<std::bidirectional_iterator_tag, Mystring> {
+    public:
+        //constructor with initialization list
+        Myiterator(char *str) : m_ptr(str) {};
 
+        //prefix operator ++i
+        Myiterator operator++() {
+            m_ptr++;
+            return *this;
+        }
+
+        //postfix operator i++
+        Myiterator operator++(int) {
+            Myiterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+
+        //prefix operator --i
+        Myiterator operator--() {
+            m_ptr--;
+            return *this;
+        }
+
+        //postfix operator i++
+        Myiterator operator--(int) {
+            Myiterator tmp = *this;
+            --(*this);
+            return tmp;
+        }
+
+        //comparison operator not equal
+        bool operator!=(Mystring::Myiterator other) const { return m_ptr != other.m_ptr; }
+
+        //comparison operator equal to
+        bool operator==(Mystring::Myiterator other) const { return m_ptr == other.m_ptr; }
+
+        //conversion function
+        char operator*() const { return m_ptr[0]; }
+
+    private:
+        char *m_ptr = nullptr;
     };
+
+    /*
+     * =================================================
+     * Constructors
+     * =================================================
+     */
+
+    //default constructor
+    Mystring();
 
     // constructor
     Mystring(const char *const str);
@@ -24,36 +75,85 @@ public:
     // copy constructor
     Mystring(const Mystring &obj);
 
-    // copy assignment
-    Mystring& operator=(const Mystring &obj);
-
     // move constructor
-    Mystring(Mystring&& dyingObj) noexcept;
+    Mystring(Mystring &&dyingObj) noexcept;
+
+    /*
+     * =================================================
+     * Destructor
+     * =================================================
+     */
+
+    ~Mystring();
+
+    /*
+     * =================================================
+     * Operators
+     * =================================================
+     */
+
+    // copy assignment
+    Mystring &operator=(const Mystring &obj);
 
     // move assignment
-    Mystring& operator=(Mystring&& dyingObj);
+    Mystring &operator=(Mystring &&dyingObj) noexcept;
 
     //+operator
     Mystring operator+(const Mystring &obj);
 
+    //+opertor
+    Mystring operator+(const char *str);
+
     //+=operator
-    Mystring& operator+=(const Mystring& obj);
+    Mystring &operator+=(const Mystring &obj);
 
-    //destructor
-    ~Mystring();
+    //+=operator
+    Mystring &operator+=(const char *str);
 
-    void append(const char *str); //concat strings
-    void append(Mystring const &str); //concat strings
+    /*
+    * =================================================
+    * Conversion function
+    * =================================================
+    */
+    operator char *() const {
+        return this->m_str;
+    }
 
-    const char *c_str() const; //access to str_
-    const size_t lenght() const;
+    /*
+    * =================================================
+    * Methods
+    * =================================================
+    */
+
+    Mystring &append(const Mystring &obj);
+
+    Mystring &append(const char *str);
+
+    const char *c_str() const;
+
+    size_t size();
+
+    Myiterator begin() const;
+
+    Myiterator end() const;
 
 private:
-    char *str_ = nullptr;
-    size_t size_ = 0;
+    char *m_str = nullptr;
+    size_t m_size = 0;
+    size_t m_buff = 0;
 
-    void destroy();
+    void m_init();
+
+    void m_realloc(const size_t size);
+
+    void m_concat(const char *str_first, const char *str_second);
+
+    void m_append(const char *str);
+
+    void m_move(Mystring &dyingObj);
+
+    size_t length(const char *str);
+
 };
-
 
 #endif //STRING_MYSTRING_H
