@@ -33,19 +33,25 @@ Mystring::Mystring() {
     m_init();
 }
 
-Mystring::Mystring(const char *const str) {
+Mystring::Mystring(const char* str) {
 
     m_init();
     m_append(str);
 }
 
 // copy constructor
-Mystring::Mystring(const Mystring &obj) : Mystring(obj.c_str()) { }
+Mystring::Mystring(const Mystring &obj) {
+    //TODO beim copy constructor gibt es keine bestehende Instanz die überschrieben wird
+    // daher muss ich keine Resourcen freigeben, passe realloc an.
+    m_init();
+    m_append(obj);
+}
 
 
 // move constructor
 Mystring::Mystring(Mystring &&dyingObj) noexcept {
-
+    //TODO beim move constructor gibt es keine bestehende Instanz die überschrieben wird
+    // daher muss ich keine Resourcen freigeben, passe realloc an.
     m_move(dyingObj);
 }
 

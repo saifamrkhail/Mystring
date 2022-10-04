@@ -25,6 +25,8 @@ TEST(MystringTest, constructor) {
     Mystring myhello("Hello");
     ASSERT_STREQ("Hello", myhello.c_str());
 
+    //Mystring myhello2 = new Mystring("Hello");
+
     using namespace std;
     string hello("Hello");
     ASSERT_STREQ("Hello", myhello.c_str());
@@ -181,6 +183,12 @@ int main(int argc, char *argv[]) {
     //TODO gcc -o string main.cpp Mystring.cpp -lgtest
     // throwing Error
 
+    //TODO mindestens mit welchen flag sollen wir den compiler aufrufen
+
+    //Am besten nur im constructor speicher allozieren
+    //dann gibt der destructor den speicher frei
+
+
     //Teil 1
     Mystring myString("Hello");
     myString.append("World");
@@ -208,3 +216,27 @@ int main(int argc, char *argv[]) {
 
     return RUN_ALL_TESTS();
 }
+
+
+//"Hallo"
+//String s1;
+//append +=
+//c_str liefert const zurück
+//length ohne backslash 0
+
+//copy constructor  String s1 = s2
+//copy assighnment constructor s1 = s2
+//copy assignment self check!!!
+
+//"hello" + s1 sollte nicht möglich sein
+
+//iteratro this is begin | | | | this is end
+//begin point here      ^     ^ point here one step before end
+//iterator can also start in the middle
+//it has to stope on the boundries
+
+//for move: placement move if buffer big enough just move
+
+//refactoring.guru
+//copy constructor könnte bei Vererbung schief laufen, weil parent clone schaut nicht gelich aus.
+//Lösung parent copy als virtual pure setzen und kind implementiert den clone

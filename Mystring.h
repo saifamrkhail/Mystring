@@ -70,7 +70,7 @@ public:
     Mystring();
 
     // constructor
-    Mystring(const char *const str);
+    Mystring(const char * str);
 
     // copy constructor
     Mystring(const Mystring &obj);
