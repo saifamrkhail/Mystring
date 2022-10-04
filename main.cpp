@@ -29,7 +29,7 @@ TEST(MystringTest, constructor) {
 
     using namespace std;
     string hello("Hello");
-    ASSERT_STREQ("Hello", myhello.c_str());
+    ASSERT_STREQ("Hello", hello.c_str());
 }
 
 TEST(MystringTest, copy_constructor) {

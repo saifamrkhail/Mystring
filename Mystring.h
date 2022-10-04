@@ -19,7 +19,7 @@ public:
     class Myiterator : public std::iterator<std::bidirectional_iterator_tag, Mystring> {
     public:
         //constructor with initialization list
-        Myiterator(char *str) : m_ptr(str) {};
+        explicit Myiterator(char *str) : m_ptr(str) {};
 
         //prefix operator ++i
         Myiterator operator++() {
@@ -70,7 +70,7 @@ public:
     Mystring();
 
     // constructor
-    Mystring(const char * str);
+    explicit Mystring(const char * str);
 
     // copy constructor
     Mystring(const Mystring &obj);
