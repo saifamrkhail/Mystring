@@ -142,15 +142,13 @@ private:
     size_t m_size = 0;
     size_t m_buff = 0;
 
-    void m_init();
+    void m_init(size_t size);
 
     void m_realloc(const size_t size);
 
-    void m_concat(const char *str_first, const char *str_second);
-
     void m_append(const char *str);
 
-    void m_move(Mystring &dyingObj);
+    void m_copy(const char *str);
 
     size_t length(const char *str);
 
