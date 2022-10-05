@@ -25,8 +25,6 @@ TEST(MystringTest, constructor) {
     Mystring myhello("Hello");
     ASSERT_STREQ("Hello", myhello.c_str());
 
-    //Mystring myhello2 = new Mystring("Hello");
-
     using namespace std;
     string hello("Hello");
     ASSERT_STREQ("Hello", hello.c_str());
